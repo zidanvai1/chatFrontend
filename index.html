@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>hush — private rooms</title>
+  <meta name="description" content="A premium, peer-to-peer chat with rooms, voice, files and video calls." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- LANDING -->
+  <section id="landing" class="screen">
+    <header class="landing-top">
+      <div class="brand"><span class="dot"></span> hush</div>
+      <button id="themeBtn" class="icon-btn" title="Toggle theme">◐</button>
+    </header>
+    <main class="landing-main">
+      <h1>Private rooms.<br/>Peer-to-peer.</h1>
+      <p class="muted">Create or join a room. Share text, voice, files, and calls — direct between devices.</p>
+      <form id="joinForm" class="card">
+        <label>Your name<input id="nameInput" maxlength="40" placeholder="e.g. Rahim" required /></label>
+        <label>Room<input id="roomInput" maxlength="40" placeholder="e.g. study-group" required /></label>
+        <label class="row"><input type="checkbox" id="rememberBox" /> Remember me</label>
+        <button type="submit">Enter room →</button>
+      </form>
+      <p class="hint muted">Tip: visit <code>?roomname</code> to skip the room field.</p>
+    </main>
+    <footer class="landing-foot muted">peer-to-peer · no accounts · no tracking</footer>
+  </section>
+
+  <!-- ROOM -->
+  <section id="room" class="screen hidden">
+    <header class="room-top">
+      <button id="menuBtn" class="icon-btn" title="Members">☰</button>
+      <div class="room-title"><span class="dot"></span><span id="roomLabel">#</span></div>
+      <div class="top-right">
+        <button id="callAudioBtn" class="icon-btn" title="Audio call">☎</button>
+        <button id="callVideoBtn" class="icon-btn" title="Video call">▶</button>
+        <button id="themeBtn2" class="icon-btn" title="Toggle theme">◐</button>
+        <button id="settingsBtn" class="icon-btn" title="Settings">⚙</button>
+      </div>
+    </header>
+
+    <div class="room-body">
+      <aside id="sidebar" class="sidebar">
+        <div class="sidebar-head">Members <span id="memberCount" class="pill">0</span></div>
+        <ul id="memberList"></ul>
+      </aside>
+
+      <main class="chat">
+        <div id="messages" class="messages"></div>
+        <div id="callBar" class="call-bar hidden">
+          <div id="videos" class="videos"></div>
+          <div class="call-controls">
+            <button id="muteBtn">🎙 Mute</button>
+            <button id="vidBtn">📷 Video</button>
+            <button id="endCallBtn" class="danger">End</button>
+          </div>
+        </div>
+        <form id="composer" class="composer">
+          <button type="button" id="attachBtn" class="icon-btn" title="Attach">📎</button>
+          <input type="file" id="fileInput" hidden multiple />
+          <button type="button" id="micBtn" class="icon-btn" title="Hold to record">🎤</button>
+          <input id="textInput" placeholder="Message #room" autocomplete="off" />
+          <button type="submit" class="send">Send</button>
+        </form>
+      </main>
+    </div>
+
+    <!-- Settings drawer -->
+    <div id="settingsDrawer" class="drawer hidden">
+      <div class="drawer-inner">
+        <div class="drawer-head">
+          <h2>Settings</h2>
+          <button id="closeSettings" class="icon-btn">✕</button>
+        </div>
+        <div class="drawer-body">
+          <div class="block">
+            <h3>Appearance</h3>
+            <label class="row">Theme
+              <select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option></select>
+            </label>
+            <label class="row">Sounds <input type="checkbox" id="soundsBox" checked /></label>
+          </div>
+          <div class="block admin-only">
+            <h3>Room (admin)</h3>
+            <p class="muted small" id="adminHint">Only admins can change these.</p>
+            <label>Message retention (minutes, 0 = forever)
+              <input type="number" id="retentionInput" min="0" max="43200" />
+            </label>
+            <label>Empty-room reset (minutes, 0 = instant)
+              <input type="number" id="emptyResetInput" min="0" max="10080" />
+            </label>
+            <button id="saveSettings" type="button">Save</button>
+            <button id="clearHistoryBtn" type="button" class="danger">Clear history</button>
+          </div>
+          <div class="block admin-only">
+            <h3>Transfer admin</h3>
+            <select id="transferSelect"></select>
+            <button id="transferBtn" type="button">Transfer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
